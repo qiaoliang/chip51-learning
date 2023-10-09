@@ -3,14 +3,14 @@
 
 void main(void)
 {
-  P2 = 0xFE;
+  P2_1 = 0x01;
   while(1){
-    delay(20);
-    P2 = ~P2;
-    P2 = P2 << 1;
-    P2 = ~P2;
-    if(P2 == 0xFF)
-      P2 = 0xFE;
+    if( P3_1 == 0){
+      delay(20);
+      while(P3_1 == 0);
+      delay(20);
+      P2_1 = ~P2_1;
+    }
   }
 
 }

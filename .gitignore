@@ -1,0 +1,4 @@
+.DS_*
+Pipfile.lock
+**/.pio/**
+**/.vscode/

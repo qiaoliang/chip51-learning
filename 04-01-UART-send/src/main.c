@@ -2,7 +2,7 @@
 #include <UART.h>
 #include <timer.h>
 /**
- * @brief 本程序点亮LED,以 4800bps 发送数据 ox66, 再熄灭LED,延时1秒,循环执行.
+ * 本程序点亮LED后,以 4800bps 发送数据 0x66. 执行发送命令以后,再熄灭LED,延时1秒,循环执行.
  *
  */
 void main(void)

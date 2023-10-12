@@ -15,7 +15,7 @@ void LCD_write(unsigned int flag, unsigned char data)
 	LCD_DataPort = data;
 	LCD_EN = 1;   // 上升沿有效
 	delay(10);
-	LCD_EN = 0;   // 变回下降沿
+	LCD_EN = 0;
 	delay(10);
 }
 

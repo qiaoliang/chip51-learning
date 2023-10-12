@@ -9,5 +9,5 @@ else
   source_file=".pio/build/STC89C52RC/firmware.hex"
 fi
 
-stcgal -P stc89 -p /dev/cu.wchusbserial14120 "$source_file"
+stcgal -P stc89 -p /dev/cu.wchusbserial14130 "$source_file"
 

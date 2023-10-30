@@ -8,6 +8,8 @@
 const unsigned char COMM =0x00;   // LCD命令字，参考数据手册
 const unsigned char DATA = 0x01;  // LCD数据，参考数据手册
 
+extern unsigned char code_pic[6][8] ;
+
 void LCD_write(unsigned int flag, unsigned char data)
 {
 	LCD_RS = flag;
@@ -59,6 +61,36 @@ void LCD_SetCursor(unsigned char Row,unsigned char Column)
 }
 
 /**
+ * @brief 将自定义字符写入CGRAM
+ *
+ * @param addr 是CGRAM 的地址（0~7）
+ * @param pic_num 是指向一个8位数组的首地址
+ */
+void LCD_Write_custom_pic(unsigned char addr, unsigned char *pic_num)
+{
+	unsigned char i;
+	addr = addr << 3;
+	for (i = 0; i < 8; i++)
+	{
+		LCD_WriteCommand(0x40 | (addr + i)); // (01) (000) (000)
+		LCD_WriteData(pic_num[i]);
+	}
+}
+
+/**
+ * @brief 写六个自定义字符到CGRAM
+ *
+ */
+void LCD_Custom_char()
+{
+	int i;
+	for (i = 0; i < 8; i++)
+	{
+		LCD_Write_custom_pic(i, code_pic[i]);
+	}
+}
+
+/**
   * @brief  LCD1602初始化函数
   * @param  无
   * @retval 无
@@ -69,6 +101,8 @@ void LCD_Init()
 	LCD_WriteCommand(0x0c);//命令字 0000 1100，设置显示开，光标关，闪烁关
 	LCD_WriteCommand(0x06);//命令字 0000 0110，设置数据读写操作后，光标自动加一，画面不动
 	LCD_WriteCommand(0x01);//命令字 0000 0001，设置光标复位，清屏
+
+    LCD_Custom_char();
 }
 
 /**
@@ -205,3 +239,5 @@ void LCD_ShowBinNum(unsigned char Row,unsigned char Column,unsigned int Number,u
 		LCD_WriteData(Number/LCD_Pow(2,i-1)%2+'0');
 	}
 }
+
+

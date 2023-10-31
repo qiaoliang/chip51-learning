@@ -12,10 +12,9 @@ unsigned char data_out = 0x00;
 void UART_Routine(void) __interrupt 4 __using 4
 {
   if(RI){
-    unsigned char result = UART_Recieve();
-        RI = 0;
-    P2 = SBUF;
-    UART_Send(~SBUF);  // 取反后,再发送回去
+    data_out = SBUF ;
+    UART_SendByte(~data_out); // 取反后,再发送回去
+    RI = 0;
   }
   if(TI){
     TI = 0;
@@ -25,7 +24,6 @@ void UART_Routine(void) __interrupt 4 __using 4
 void main(void)
 {
   UART_Init();
-  TIMER_0_Init(); // 定时器0用于产生波特率
 
   while (1)
   {

@@ -3,5 +3,5 @@
 #include<8052.h>
 
 void TIMER_0_Init();
-void TIMER_1_Init();
+
 #endif

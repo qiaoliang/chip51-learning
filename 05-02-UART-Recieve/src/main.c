@@ -13,7 +13,7 @@ void UART_Routine(void) __interrupt 4 __using 4
 {
   if(RI){
     data_out = SBUF ;
-    UART_SendByte(~data_out); // 取反后,再发送回去
+    UART_SendByte('A'); // 取反后,再发送回去
     RI = 0;
   }
   if(TI){

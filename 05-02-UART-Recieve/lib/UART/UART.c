@@ -22,17 +22,22 @@ void UART_SendByte(unsigned char byte) // 通过查询方式来发送数据
     while(TI==0);   // 发送中,TI位 如果为0 就表示数据未发送完成.反复执行本条语句检测TI位
     TI = 0;         // 此时数据已发送完成, 马上将TI位清零,以便下一次发送.
 }
+
+
 /**
  * @brief 发送结尾为'\0' 的字符串
  *
  * @param str 字符串的首地址
  */
-void UART_SendString(unsigned char *str){
-    unsigned char temp;
-    while(*str != '\0'){
-        temp = *str;
-        str++;
-        UART_SendByte(temp);
+void UART_SendString(unsigned char *str)
+{
+    while (*str != '\0') // 当字符串s不为空时
+    {
+        SBUF = *str; // 将字符串s中的字符发送到串口
+        while (TI == 0)
+            ;   // 等待上一个字符发送完成
+        TI = 0; // 清除发送完成标志位TI
+        str++;    // 指向下一个字符
     }
 }
 unsigned char UART_RecieveByte(){

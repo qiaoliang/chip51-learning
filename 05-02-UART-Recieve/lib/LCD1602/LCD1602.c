@@ -240,4 +240,12 @@ void LCD_ShowBinNum(unsigned char Row,unsigned char Column,unsigned int Number,u
 	}
 }
 
+void LCD_Clear(void){
+	LCD_RS = 0;
+	Delay_ms(1);
+	LCD_RW = 0;
+	Delay_ms(1);
+	LCD_DataPort = 0x01;
+	Delay_ms(1);
+}
 

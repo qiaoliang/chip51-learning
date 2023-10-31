@@ -21,4 +21,5 @@ void LCD_ShowBinNum(unsigned char Line,unsigned char Column,unsigned int Number,
 void LCD_Write_custom_pic(unsigned char addr, unsigned char *pic_num);
 void LCD_WriteCommand(unsigned char Command);
 void LCD_WriteData(unsigned char Content);
+void LCD_Clear(void);
 #endif

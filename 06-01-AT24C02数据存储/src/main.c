@@ -1,8 +1,8 @@
 #include <8052.H>
-#include <LCD1602.h>
-#include <Key.h>
+#include "LCD1602.h"
+#include "Key.h"
 #include "AT24C02.h"
-#include <Delay.h>
+#include "Delay.h"
 
 unsigned char KeyNum;
 unsigned int Num;
@@ -27,11 +27,11 @@ void main()
 		if(KeyNum==3)	//K3按键，向AT24C02写入数据
 		{
 			AT24C02_WriteByte(0,Num%256);
-			Delay(5);
+			Delay_ms(5);
 			AT24C02_WriteByte(1,Num/256);
-			Delay(5);
+			Delay_ms(5);
 			LCD_ShowString(2,1,"Write OK");
-			Delay(1000);
+			Delay_ms(1000);
 			LCD_ShowString(2,1,"        ");
 		}
 		if(KeyNum==4)	//K4按键，从AT24C02读取数据
@@ -40,7 +40,7 @@ void main()
 			Num|=AT24C02_ReadByte(1)<<8;
 			LCD_ShowNum(1,1,Num,5);
 			LCD_ShowString(2,1,"Read OK ");
-			Delay(1000);
+			Delay_ms(1000);
 			LCD_ShowString(2,1,"        ");
 		}
 	}

@@ -1,4 +1,4 @@
-#include <REGX52.H>
+#include <8052.H>
 #include "I2C.h"
 
 #define AT24C02_ADDRESS		0xA0
@@ -9,7 +9,7 @@
   * @param  Data 要写入的数据
   * @retval 无
   */
-void AT24C02_WriteByte(unsigned char WordAddress,Data)
+void AT24C02_WriteByte(unsigned char WordAddress,unsigned char Data)
 {
 	I2C_Start();
 	I2C_SendByte(AT24C02_ADDRESS);

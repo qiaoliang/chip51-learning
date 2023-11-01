@@ -16,7 +16,7 @@ void UART_Routine(void) __interrupt 4 __using 4
   if (RI)
   {
     unsigned char data_recieved = SBUF;
-    if(data_recieved=='\a'){  // 07D 07H ,清屏
+    if(data_recieved=='\a'){  // 0x07 ,清屏
       LCD_ShowChar(row, column, 'x');
       LCD_Clear();
       row=1;
@@ -24,10 +24,12 @@ void UART_Routine(void) __interrupt 4 __using 4
       RI = 0;
       return;
     }
-    if(data_recieved=='\b'){   // 08D, 0x08 在下一行开始显示
+    if(data_recieved=='\b'){   // 0x08 在下一行开始显示
       LCD_ShowChar(row, column, 'y');
       RI = 0;
-      row= row==1?2:1;
+      if(row>=2)
+        LCD_Clear();  // 清屏
+      row = row==2?1:2;
       column = 1;
       return;
     }
@@ -44,6 +46,7 @@ void UART_Routine(void) __interrupt 4 __using 4
         row++;
       }else{
         row=1;
+        LCD_Clear();  // 清屏
       }
     }
     RI = 0;

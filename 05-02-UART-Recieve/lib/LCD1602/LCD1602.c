@@ -12,8 +12,10 @@ extern unsigned char code_pic[6][8] ;
 
 void LCD_write(unsigned int flag, unsigned char data)
 {
-	LCD_RS = flag;
-	LCD_RW = 0;
+    LCD_EN = 0;  	// 使能端首先置低
+	LCD_RS = flag;	// 根据指令类型设置RS, 0:指令; 1:数据
+	LCD_RW = 0;		// RW清零，选择写入. 1:读取; 0:写入
+	Delay_ms(10);
 	LCD_DataPort = data;
 	LCD_EN = 1;   // 上升沿有效
     Delay_ms(10);
@@ -241,11 +243,6 @@ void LCD_ShowBinNum(unsigned char Row,unsigned char Column,unsigned int Number,u
 }
 
 void LCD_Clear(void){
-	LCD_RS = 0;
-	Delay_ms(1);
-	LCD_RW = 0;
-	Delay_ms(1);
-	LCD_DataPort = 0x01;
-	Delay_ms(1);
+	LCD_WriteCommand(0x01);
 }
 

@@ -1,15 +1,15 @@
-#define FREQ_OSC 11059200UL // 晶振频率，单位Hz
-
-void delay_ms(unsigned int count)
+void Delay_ms(unsigned int xms) // Delay Function @11.0592MHz
 {
-	unsigned int i;
-	while (count > 0)
+	unsigned char i, j;
+
+	for (; xms > 0; xms--)
 	{
-		i = FREQ_OSC / 1000 / 12; // 1ms延时需要的计数次数
-		while (i > 0)
+		i = 2;
+		j = 199;
+		do
 		{
-			i--;
-		}
-		count--;
+			while (--j)
+				;
+		} while (--i);
 	}
 }

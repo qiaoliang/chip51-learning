@@ -5,7 +5,8 @@
 #define DS18B20_SKIP_ROM			0xCC
 #define DS18B20_CONVERT_T			0x44
 #define DS18B20_READ_SCRATCHPAD 	0xBE
-
+char THigh = 32;
+char TLow = 25;
 /**
   * @brief  DS18B20开始温度变换
   * @param  无
@@ -36,4 +37,40 @@ float DS18B20_ReadT(void)
 	Temp=(TMSB<<8)|TLSB;
 	T=Temp/16.0;
 	return T;
+}
+void DS18B02_SetThreshold(unsigned char KeyNum)
+{
+
+	if (KeyNum == 1) // K1按键，THigh自增
+	{
+		THigh++;
+		if (THigh > 125)
+		{
+			THigh = 125;
+		}
+	}
+	if (KeyNum == 2) // K2按键，THigh自减
+	{
+		THigh--;
+		if (THigh <= TLow)
+		{
+			THigh++;
+		}
+	}
+	if (KeyNum == 3) // K3按键，TLow自增
+	{
+		TLow++;
+		if (TLow >= THigh)
+		{
+			TLow--;
+		}
+	}
+	if (KeyNum == 4) // K4按键，TLow自减
+	{
+		TLow--;
+		if (TLow < -55)
+		{
+			TLow = -55;
+		}
+	}
 }

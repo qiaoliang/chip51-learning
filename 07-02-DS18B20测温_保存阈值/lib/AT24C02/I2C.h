@@ -8,5 +8,4 @@ unsigned char I2C_ReceiveByte(void);
 void I2C_SendAck(unsigned char AckBit);
 unsigned char I2C_ReceiveAck(void);
 
-
 #endif

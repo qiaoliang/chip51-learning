@@ -1,3 +1,4 @@
+**/.gitignore
 **/~*.*
 .DS_*
 Pipfile.lock

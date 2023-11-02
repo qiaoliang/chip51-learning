@@ -5,6 +5,7 @@
 #include "Key.h"
 #include "AT24C02.h"
 #include "Timer.h"
+#include "Buzzer.h"
 
 float T, TShow;
 extern char TLow, THigh;
@@ -35,7 +36,9 @@ void main()
 	{
 		/*温度读取及显示*/
 		DS18B20_ConvertT();	 // 转换温度, 从温度感应元件中将当前的温度值转运到数据寄存器中
+		Delay_ms(10);			 // 等待转换完成
 		T = DS18B20_ReadT(); // 读取温度, 即: 从数据寄存器中读出数据
+		Delay_ms(10);		 // 等待读取完成
 		if (T < 0)			 // 如果温度小于 0 度,
 		{
 			LCD_ShowChar(1, 3, '-'); // 显示负号
@@ -65,10 +68,12 @@ void main()
 		if (T > THigh) // 温度越界判断
 		{
 			LCD_ShowString(1, 13, "OV:H");
+			Buzzer(200);
 		}
 		else if (T < TLow)
 		{
 			LCD_ShowString(1, 13, "OV:L");
+			Buzzer(100);
 		}
 		else
 		{

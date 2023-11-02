@@ -3,6 +3,6 @@
 
 unsigned char Key();
 
-unsigned char Key_Captured(void) ;
+unsigned char Key_Captured(void);
 void Key_Loop(void);
 #endif

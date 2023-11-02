@@ -1,15 +1,15 @@
 #include <8052.H>
 #include "I2C.h"
 
-#define AT24C02_ADDRESS		0xA0
+#define AT24C02_ADDRESS 0xA0
 
 /**
-  * @brief  AT24C02写入一个字节
-  * @param  WordAddress 要写入字节的地址, 可取值 0 : 代表 低8位地址; 1 : 代表高 8 位地址.
-  * @param  Data 要写入一个 8 位的数值.
-  * @retval 无
-  */
-void AT24C02_WriteByte(unsigned char WordAddress,unsigned char Data)
+ * @brief  AT24C02写入一个字节
+ * @param  WordAddress 要写入字节的地址, 可取值 0 : 代表 低8位地址; 1 : 代表高 8 位地址.
+ * @param  Data 要写入一个 8 位的数值.
+ * @retval 无
+ */
+void AT24C02_WriteByte(unsigned char WordAddress, unsigned char Data)
 {
 	I2C_Start();
 	I2C_SendByte(AT24C02_ADDRESS);
@@ -22,10 +22,10 @@ void AT24C02_WriteByte(unsigned char WordAddress,unsigned char Data)
 }
 
 /**
-  * @brief  AT24C02读取一个字节
-  * @param  WordAddress 要读出字节的地址, 0: 低 8 位, 1: 高 8 位
-  * @retval 读出一个 8 位的数值.
-  */
+ * @brief  AT24C02读取一个字节
+ * @param  WordAddress 要读出字节的地址, 0: 低 8 位, 1: 高 8 位
+ * @retval 读出一个 8 位的数值.
+ */
 unsigned char AT24C02_ReadByte(unsigned char WordAddress)
 {
 	unsigned char Data;
@@ -35,9 +35,9 @@ unsigned char AT24C02_ReadByte(unsigned char WordAddress)
 	I2C_SendByte(WordAddress);
 	I2C_ReceiveAck();
 	I2C_Start();
-	I2C_SendByte(AT24C02_ADDRESS|0x01);
+	I2C_SendByte(AT24C02_ADDRESS | 0x01);
 	I2C_ReceiveAck();
-	Data=I2C_ReceiveByte();
+	Data = I2C_ReceiveByte();
 	I2C_SendAck(1);
 	I2C_Stop();
 	return Data;
